@@ -26,6 +26,7 @@ int main()
         result = (result * A) % C;
     }
     cout << result;
+    
 
     return 0;
 }
