@@ -1,9 +1,6 @@
-// #include <bits/stdc++.h>
-#include <queue>
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
-// URL: https://www.acmicpc.net/problem/1697
+// URL: https://www.acmicpc.net/problem/13913
 
 #define REP(i, a, b) for (int i = (a); i < (b); i++)
 #define endl '\n'
@@ -29,7 +26,10 @@ int main()
     bool reached = false;
     cin >> N >> K;
     vector<bool> visited(MAX_NUM, 0);
+    vector<int> parent(MAX_NUM, -1);
     newPosAfterSec.push(N);
+    visited[N] = true;
+    parent[N] = N;
     while (!reached)
     {
         size = newPosAfterSec.size();
@@ -37,23 +37,25 @@ int main()
         REP(i, 0, size)
         {
             num = newPosAfterSec.front();
-            visited[num] = true;
             prev = num - 1;
             next = num + 1;
             twice = num << 1;
             if (MIN_NUM <= prev && prev < MAX_NUM && !visited[prev])
             {
                 visited[prev] = true;
+                parent[prev] = num;
                 newPosAfterSec.push(prev);
             }
             if (MIN_NUM <= next && next < MAX_NUM && !visited[next])
             {
                 visited[next] = true;
+                parent[next] = num;
                 newPosAfterSec.push(next);
             }
             if (MIN_NUM <= twice && twice < MAX_NUM && !visited[twice])
             {
                 visited[twice] = true;
+                parent[twice] = num;
                 newPosAfterSec.push(twice);
             }
             if (num == K)
@@ -62,6 +64,21 @@ int main()
         }
         sec++;
     }
-    cout << sec;
+    cout << sec << endl;
+    // print path
+    stack<int> path;
+    int p = K;
+    while (p != parent[p])
+    {
+        path.push(p);
+        p = parent[p];
+    }
+    path.push(p);
+
+    while (!path.empty())
+    {
+        cout << path.top() << ' ';
+        path.pop();
+    }
     return 0;
 }

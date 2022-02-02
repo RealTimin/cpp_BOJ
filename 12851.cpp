@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-// URL: https://www.acmicpc.net/problem/1697
+// URL: https://www.acmicpc.net/problem/12851
 
 #define REP(i, a, b) for (int i = (a); i < (b); i++)
 #define endl '\n'
@@ -27,6 +27,7 @@ int main()
     int sec = -1;
     int size, num, prev, next, twice;
     bool reached = false;
+    int count = 0;
     cin >> N >> K;
     vector<bool> visited(MAX_NUM, 0);
     newPosAfterSec.push(N);
@@ -42,26 +43,21 @@ int main()
             next = num + 1;
             twice = num << 1;
             if (MIN_NUM <= prev && prev < MAX_NUM && !visited[prev])
-            {
-                visited[prev] = true;
                 newPosAfterSec.push(prev);
-            }
             if (MIN_NUM <= next && next < MAX_NUM && !visited[next])
-            {
-                visited[next] = true;
                 newPosAfterSec.push(next);
-            }
             if (MIN_NUM <= twice && twice < MAX_NUM && !visited[twice])
-            {
-                visited[twice] = true;
                 newPosAfterSec.push(twice);
-            }
             if (num == K)
+            {
+                count++;
                 reached = true;
+            }
             newPosAfterSec.pop();
         }
         sec++;
     }
-    cout << sec;
+    cout << sec << endl;
+    cout << count;
     return 0;
 }

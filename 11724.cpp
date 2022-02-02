@@ -268,7 +268,6 @@ bool Graph::hasCycleHelper_directed(int *visited, int *finished, int *parent, in
         {
             // GREY vertex
             cycle = true;
-            // TODO: print cycle
             int cycleIndex = index;
             cout << "Node index in a cycle: ";
             while (cycleIndex != a_index)
@@ -308,7 +307,6 @@ bool Graph::hasCycleHelper_indirected(int *visited, int *finished, int *parent, 
             {
                 // GREY vertex
                 cycle = true;
-                // TODO: print cycle
                 int cycleIndex = index;
                 cout << "Node index in a cycle: ";
                 while (cycleIndex != a_index)

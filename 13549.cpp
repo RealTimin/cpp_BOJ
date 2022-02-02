@@ -1,13 +1,10 @@
-// #include <bits/stdc++.h>
-#include <queue>
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
-// URL: https://www.acmicpc.net/problem/1697
+// URL: https://www.acmicpc.net/problem/13549
 
 #define REP(i, a, b) for (int i = (a); i < (b); i++)
 #define endl '\n'
-#define MAX_NUM 200000
+#define MAX_NUM 120000
 #define MIN_NUM 0
 using namespace std;
 
@@ -29,38 +26,61 @@ int main()
     bool reached = false;
     cin >> N >> K;
     vector<bool> visited(MAX_NUM, 0);
+    twice = N << 1;
     newPosAfterSec.push(N);
+    visited[N] = true;
+    while (MIN_NUM < twice && twice < MAX_NUM)
+    {
+        if (MIN_NUM <= twice && twice < MAX_NUM && !visited[twice])
+        {
+            visited[twice] = true;
+            newPosAfterSec.push(twice);
+        }
+        twice = twice << 1;
+    }
     while (!reached)
     {
+        sec++;
         size = newPosAfterSec.size();
         reached = false;
         REP(i, 0, size)
         {
             num = newPosAfterSec.front();
-            visited[num] = true;
             prev = num - 1;
-            next = num + 1;
-            twice = num << 1;
             if (MIN_NUM <= prev && prev < MAX_NUM && !visited[prev])
             {
                 visited[prev] = true;
                 newPosAfterSec.push(prev);
             }
+            while (MIN_NUM < prev && prev < MAX_NUM)
+            {
+                prev = prev << 1;
+                if (MIN_NUM <= prev && prev < MAX_NUM && !visited[prev])
+                {
+                    visited[prev] = true;
+                    newPosAfterSec.push(prev);
+                }
+            }
+
+            next = num + 1;
             if (MIN_NUM <= next && next < MAX_NUM && !visited[next])
             {
                 visited[next] = true;
                 newPosAfterSec.push(next);
             }
-            if (MIN_NUM <= twice && twice < MAX_NUM && !visited[twice])
+            while (MIN_NUM < next && next < MAX_NUM)
             {
-                visited[twice] = true;
-                newPosAfterSec.push(twice);
+                next = next << 1;
+                if (MIN_NUM <= next && next < MAX_NUM && !visited[next])
+                {
+                    visited[next] = true;
+                    newPosAfterSec.push(next);
+                }
             }
             if (num == K)
                 reached = true;
             newPosAfterSec.pop();
         }
-        sec++;
     }
     cout << sec;
     return 0;
