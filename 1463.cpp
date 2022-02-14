@@ -35,38 +35,87 @@
 //     return 0;
 // }
 
-#define MAX_NUM 1000000
+// #define MAX_NUM 1000000
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int minimum[MAX_NUM + 2] = {0};
+// int minimum[MAX_NUM + 2] = {0};
+// int N;
+
+// void Save(int next, int i)
+// {
+//     if (next <= MAX_NUM)
+//     {
+//         if (minimum[next] == 0 || (minimum[next] > minimum[i] + 1))
+//         {
+//             minimum[next] = minimum[i] + 1;
+//         }
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, next;
+//     scanf("%d", &N);
+//     for (i = 1; i < N; i++)
+//     {
+//         next = i + 1;
+//         Save(next,i);
+//         next = i * 2;
+//         Save(next,i);
+//         next = i * 3;
+//         Save(next,i);
+//     }
+//     printf("%d", minimum[N]);
+//     return 0;
+// }
+
+// URL: https://www.acmicpc.net/problem/1463
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+typedef vector<vector<int>> vvi;
+
+#define REP(i, a, b) for (int i = (a); i < (b); i++)
+#define endl '\n'
+#define MAXN 1000001
+
+int minCount[MAXN] = {0};
 int N;
 
-void Save(int next, int i)
+void FindMin(int index, int prevCount)
 {
-    if (next <= MAX_NUM)
+    if (index > N)
+        return;
+    if (minCount[index] > prevCount + 1)
     {
-        if (minimum[next] == 0 || (minimum[next] > minimum[i] + 1))
-        {
-            minimum[next] = minimum[i] + 1;
-        }
+        minCount[index] = prevCount + 1;
     }
 }
 
-
-int main(void)
+int main()
 {
-    int i, next;
-    scanf("%d", &N);
-    for (i = 1; i < N; i++)
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    // cout.setf(ios::fixed);
+    // cout.precision(3);
+    minCount[1] = 0;
+    cin >> N;
+    REP(i, 2, N + 1)
     {
-        next = i + 1;
-        Save(next,i);
-        next = i * 2;
-        Save(next,i);
-        next = i * 3;
-        Save(next,i);
+        minCount[i] = INT_MAX;
     }
-    printf("%d", minimum[N]);
+    REP(i, 1, N + 1)
+    {
+        FindMin(i * 2, minCount[i]);
+        FindMin(i * 3, minCount[i]);
+        FindMin(i + 1, minCount[i]);
+    }
+    cout << minCount[N];
+
     return 0;
 }

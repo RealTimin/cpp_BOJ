@@ -1,9 +1,5 @@
 // URL: https://www.acmicpc.net/problem/00000
 #include <bits/stdc++.h>
-
-#define REP(i, a, b) for (int i = (a); i < (b); i++)
-#define endl '\n'
-
 using namespace std;
 
 typedef long long ll;
@@ -11,29 +7,24 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<vector<int>> vvi;
 
-class Solution
-{
-public:
-    void Solve()
-    {
+#define REP(i, a, b) for (int i = (a); i < (b); i++)
+#define endl '\n'
+
+class Solution {
+  public:
+    void Solve() {
         Input();
+        Output();
     }
     // Data structure
-    int N, M;
 
-private:
-    void Input()
-    {
-        cin >> N >> M;
-    }
+  private:
+    void Input() {}
 
-    void DFS(int s, int e, int w)
-    {
-    }
+    void Output() {}
 };
 
-int main()
-{
+int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
