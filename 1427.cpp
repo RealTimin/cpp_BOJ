@@ -1,4 +1,4 @@
-// URL: https://www.acmicpc.net/problem/1761
+// URL: https://www.acmicpc.net/problem/1427
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -9,8 +9,6 @@ typedef vector<vector<int>> vvi;
 
 #define REP(i, a, b) for (int i = (a); i < (b); i++)
 #define endl '\n'
-#define ALL(v) (v).begin(), (v).end()
-#define FOREACH(it, v) for (__typeof((v).begin()) it = (v).begin(); it != (v).end(); it++)
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -18,11 +16,9 @@ int main() {
     cout.tie(0);
     // cout.setf(ios::fixed);
     // cout.precision(3);
-    vector<pii> v;
-    for (auto it = v.begin(); it != v.end(); it++) {
-        (*it).first = 1;
-    }
-    FOREACH(ittt, v) { (*ittt).first = 1; }
-
+    string s;
+    cin >> s;
+    sort(s.begin(), s.end(), greater<char>());
+    cout << s;
     return 0;
 }

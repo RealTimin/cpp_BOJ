@@ -9,6 +9,8 @@ typedef vector<vector<int>> vvi;
 
 #define REP(i, a, b) for (int i = (a); i < (b); i++)
 #define endl '\n'
+#define ALL(v) (v).begin(), (v).end()
+#define FOREACH(it, v) for (__typeof((v).begin()) it = (v).begin(); it != (v).end(); it++)
 
 class Solution {
   public:
