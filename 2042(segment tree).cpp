@@ -21,11 +21,9 @@ class Node {
     Node(int _s, int _e, ll v = -1) : s(_s), e(_e), value(v), left(nullptr), right(nullptr){};
     void DeleteNode() {
         if (left != nullptr) {
-            left->DeleteNode();
             delete left;
         }
         if (right != nullptr) {
-            right->DeleteNode();
             delete right;
         }
         return;
@@ -113,6 +111,6 @@ int main() {
             cout << FindSum(sumSegRoot, s - 1, e - 1) << endl;
         }
     }
-
+    delete sumSegRoot;
     return 0;
 }

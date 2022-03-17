@@ -21,11 +21,9 @@ class Node {
     Node(int _s, int _e, int v = -1) : s(_s), e(_e), value(v), left(nullptr), right(nullptr){};
     void DeleteNode() {
         if (left != nullptr) {
-            left->DeleteNode();
             delete left;
         }
         if (right != nullptr) {
-            right->DeleteNode();
             delete right;
         }
         return;
@@ -128,5 +126,7 @@ int main() {
         cout << FindMin(minSegRoot, s, e) << ' ' << FindMax(maxSegRoot, s, e) << endl;
     }
 
+    delete minSegRoot;
+    delete maxSegRoot;
     return 0;
 }
