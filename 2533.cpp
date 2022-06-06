@@ -1,6 +1,6 @@
 // URL: https://www.acmicpc.net/problem/2533
 // My solution: greedy
-// Intention: dp in tree (If parent node is EA, decide which child is EA. If parent node is not EA, all chidren nodes are EA. )
+// Intention: dp in tree (If parent node is EA, divide cases and decide which child is EA. If parent node is not EA, all chidren nodes are EA. )
 #include <bits/stdc++.h>
 using namespace std;
 

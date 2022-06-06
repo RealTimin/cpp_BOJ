@@ -1,4 +1,4 @@
-// URL: https://www.acmicpc.net/problem/2042
+// URL: https://www.acmicpc.net/problem/14438
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -43,12 +43,12 @@ ll MakeSeg(Node *node) {
         n1 = MakeSeg(node->left);
         node->right = new Node(mid + 1, e);
         n2 = MakeSeg(node->right);
-        node->value = n1 + n2;
+        node->value = min(n1, n2);
     }
     return node->value;
 }
 
-ll FindSum(Node *node, int s, int e) {
+ll FindMin(Node *node, int s, int e) {
     if (s == e) {
         return nums[s];
     }
@@ -56,34 +56,35 @@ ll FindSum(Node *node, int s, int e) {
     if (s == node->s && e == node->e) {
         return node->value;
     } else if (e <= mid) {
-        return FindSum(node->left, s, e);
+        return FindMin(node->left, s, e);
     } else if (s > mid) {
-        return FindSum(node->right, s, e);
+        return FindMin(node->right, s, e);
     } else {
-        ll sumValue = FindSum(node->left, s, mid);
-        sumValue += FindSum(node->right, mid + 1, e);
-        return sumValue;
+        ll minValue = FindMin(node->left, s, mid);
+        minValue = min(minValue, FindMin(node->right, mid + 1, e));
+        return minValue;
     }
 }
 
-ll ChangeSum(Node *node, int idx, ll num) {
+ll ChangeMin(Node *node, int idx, ll num) {
     int s = node->s;
     int e = node->e;
-    ll dif;
+    ll minValue;
     if (s == e) {
-        dif = num - nums[idx];
-        nums[idx] += dif;
-        node->value += dif;
-        return dif;
+        nums[idx] = num;
+        minValue = num;
+        node->value = minValue;
+        return minValue;
     }
     int mid = node->left->e;
     if (idx <= mid) {
-        dif = ChangeSum(node->left, idx, num);
+        minValue = ChangeMin(node->left, idx, num);
+        node->value = min(minValue, node->right->value);
     } else if (idx > mid) {
-        dif = ChangeSum(node->right, idx, num);
+        minValue = ChangeMin(node->right, idx, num);
+        node->value = min(minValue, node->left->value);
     }
-    node->value += dif;
-    return dif;
+    return node->value;
 }
 
 int main() {
@@ -92,25 +93,26 @@ int main() {
     cout.tie(0);
     // cout.setf(ios::fixed);
     // cout.precision(3);
-    int N, M, K;
+    int N, M;
     ll f, s, e;
-    cin >> N >> M >> K;
+    cin >> N;
     nums.assign(N, 0);
     REP(i, 0, N) { cin >> nums[i]; }
     // make segment tree
-    Node *sumSegRoot = new Node(0, N - 1);
-    MakeSeg(sumSegRoot);
+    Node *minSegRoot = new Node(0, N - 1);
+    MakeSeg(minSegRoot);
 
     // query
-    REP(i, 0, M + K) {
+    cin >> M;
+    REP(i, 0, M) {
         cin >> f >> s >> e;
         if (f == 1) {
             // change sums
-            ChangeSum(sumSegRoot, s - 1, e);
+            ChangeMin(minSegRoot, s - 1, e);
         } else {
-            cout << FindSum(sumSegRoot, s - 1, e - 1) << endl;
+            cout << FindMin(minSegRoot, s - 1, e - 1) << endl;
         }
     }
-    delete sumSegRoot;
+    delete minSegRoot;
     return 0;
 }

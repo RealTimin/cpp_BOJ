@@ -184,7 +184,7 @@ void MoveRight(int step) {
 }
 
 void DFS(int step) {
-    // sn++;
+    sn++;
     // if (noChange[step]) {
     //     return;
     // }
@@ -195,7 +195,7 @@ void DFS(int step) {
     // if (tempMaxNum < (maxNum >> (MAXSTEP - step))) {
     //     return;
     // }
-    if (tempMaxNum < minNum[step]) {
+    if (tempMaxNum <= minNum[step]) {
         return;
     }
     // if (!noChange[step][0]) {
@@ -257,6 +257,7 @@ int main() {
     REP(i, 0, N) {
         REP(j, 0, N) { cin >> board[0][i][j]; }
     }
+    memset(minNum, -1, sizeof(int) * (MAXSTEP + 1));
     DFS(0);
     cout << maxNum;
     // MoveLeft(0);

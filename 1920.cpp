@@ -1,13 +1,12 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 #define REP(i, a, b) for (int i = (a); i < (b); i++)
 
 using namespace std;
 
-int main()
-{
+int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -15,22 +14,20 @@ int main()
     cin >> N;
     vector<int> nums;
     int num;
-    REP(i, 0, N)
-    {
+    REP(i, 0, N) {
         cin >> num;
         nums.push_back(num);
     }
     sort(nums.begin(), nums.end());
     auto it = nums.begin();
     cin >> M;
-    REP(i, 0, M)
-    {
+    REP(i, 0, M) {
         cin >> num;
         it = lower_bound(nums.begin(), nums.end(), num);
-        if ((*it) == num)
-            cout << 1 << '\n';
-        else
+        if (it == nums.end() || (*it) != num)
             cout << 0 << '\n';
+        else
+            cout << 1 << '\n';
     }
     return 0;
 }
